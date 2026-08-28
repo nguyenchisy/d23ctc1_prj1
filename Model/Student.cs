@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace prj1.Model
 {
@@ -9,17 +6,22 @@ namespace prj1.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Age { get; set; }        
-        public Student(int id, string name, int age)
+        public int Age { get; set; }
+        public double GPA { get; set; }
+
+        public Student(int id, string name, int age, double gpa)
         {
             Id = id;
             Name = name;
             Age = age;
-        }   
+            GPA = gpa;
+        }
+
         public void DisplayStudentInfo()
         {
-            Console.WriteLine($"ID: {Id}, Name: {Name}, Age: {Age}");       
-            
+            Console.WriteLine(
+                $"ID: {Id}, Name: {Name}, Age: {Age}, GPA: {GPA:F2}"
+            );
         }
     }
 }

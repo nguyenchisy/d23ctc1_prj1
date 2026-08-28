@@ -29,6 +29,13 @@ namespace prj1.Service
         {
             return students.FirstOrDefault(s => s.Id == id);
         }
+
+        public void SortStudentsByGPA()
+{
+    students = students
+        .OrderByDescending(s => s.GPA)
+        .ToList();
+}
         
     }
 }
