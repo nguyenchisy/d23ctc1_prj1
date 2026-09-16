@@ -1,2 +1,7 @@
-# d23ctc1_prj1
-BTL kết thúc HP
+# D23CTC1 PRJ1
+
+Thuc hanh quy trinh cong tac OSS tren GitHub.
+
+## Thuc hanh 4.6
+
+Tao branch moi va thuc hien Pull Request.
