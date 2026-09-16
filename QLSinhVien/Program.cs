@@ -1,57 +1,113 @@
-﻿namespace QLSinhVien;
-public interface SinhVien
-{
-    void Them(QLSinhVien sv);
-    void TimKiem(int ma);
+﻿using System;
+using System.Collections.Generic;
 
-}
-public class QLSinhVien:SinhVien
+namespace QLSinhVien
 {
-    public int MaSV {get;set;}
-    public string TenSV {get;set;}
-    public double Gpa {get;set;}
-    List<QLSinhVien> qLSinhViens1=new List<QLSinhVien>();
-    public QLSinhVien(int masv,string tensv,double gpa)
+    public interface SinhVien
     {
-        MaSV=masv;
-        TenSV=tensv;
-        Gpa= gpa;
-  
+        void Them(QLSinhVien? sinhVien);
+        void TimKiem(int ma);
     }
-    public void Them(QLSinhVien sv)
+
+    public class QLSinhVien : SinhVien
     {
-       qLSinhViens1.Add(sv);
-    }
-    public void TimKiem(int ma)
-    {
-        var sinhviens= qLSinhViens1.Find(u=>u.MaSV==ma);
-        if(sinhviens ==null)
+        public int MaSV { get; set; }
+        public string TenSV { get; set; } = string.Empty;
+        public double Gpa { get; set; }
+
+        private readonly List<QLSinhVien> danhSachSinhVien;
+
+        public QLSinhVien(int maSV, string tenSV, double gpa)
         {
-            throw new KeyNotFoundException($"Mã sinh viên {ma} không tìm thấy");
+            MaSV = maSV;
+            TenSV = tenSV;
+            Gpa = gpa;
+
+            danhSachSinhVien = new List<QLSinhVien>();
         }
-        if(sinhviens!=null)
+
+        public void Them(QLSinhVien? sinhVien)
         {
+            if (sinhVien != null)
+            {
+                danhSachSinhVien.Add(sinhVien);
+            }
+        }
+
+        public void TimKiem(int ma)
+        {
+            QLSinhVien? ketQua = null;
+
+            foreach (QLSinhVien sinhVien in danhSachSinhVien)
+            {
+                if (sinhVien.MaSV == ma)
+                {
+                    ketQua = sinhVien;
+                    break;
+                }
+            }
+
+            if (ketQua == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Mã sinh viên {ma} không tìm thấy"
+                );
+            }
+
             Console.WriteLine("Bạn đã tìm kiếm sinh viên thành công");
         }
-    }
-    public void InSinhVien()
-    {
-        foreach (var item in qLSinhViens1)
+
+        public void InSinhVien()
         {
-            Console.WriteLine($"{item.MaSV},{item.TenSV},{item.Gpa}");
+            if (danhSachSinhVien.Count == 0)
+            {
+                Console.WriteLine("Danh sách sinh viên đang trống.");
+                return;
+            }
+
+            foreach (QLSinhVien sinhVien in danhSachSinhVien)
+            {
+                Console.WriteLine(
+                    $"Mã SV: {sinhVien.MaSV}, " +
+                    $"Tên SV: {sinhVien.TenSV}, " +
+                    $"GPA: {sinhVien.Gpa}"
+                );
+            }
+        }
+
+        public void ThemSinhVien()
+        {
+            Console.Write("Nhập mã sinh viên: ");
+            string? maInput = Console.ReadLine();
+            if (!int.TryParse(maInput, out int maSV))
+            {
+                Console.WriteLine("Mã sinh viên không hợp lệ.");
+                return;
+            }
+
+            Console.Write("Nhập tên sinh viên: ");
+            string? tenInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(tenInput))
+            {
+                Console.WriteLine("Tên sinh viên không được để trống.");
+                return;
+            }
+
+            Console.Write("Nhập điểm trung bình: ");
+            string? gpaInput = Console.ReadLine();
+            if (!double.TryParse(gpaInput, out double gpa))
+            {
+                Console.WriteLine("Điểm trung bình không hợp lệ.");
+                return;
+            }
+
+            QLSinhVien sinhVienMoi =
+                new QLSinhVien(maSV, tenInput.Trim(), gpa);
+
+            Them(sinhVienMoi);
+
+            Console.WriteLine("Thêm sinh viên thành công.");
         }
     }
-
-    public void ThemSinhVien()
-    {
-        Console.WriteLine("Nhap ma sinh vien: ");
-        int masv=Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Nhap ten sinh vien: ");
-        string tensv=Console.ReadLine();
-        Console.WriteLine("Nhap diem trung binh: ");
-        double gpa=Convert.ToDouble(Console.ReadLine());
-        QLSinhVien sv=new QLSinhVien(masv,tensv,gpa);
-        Them(sv);
-    }
-
 }
+
