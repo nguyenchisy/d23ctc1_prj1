@@ -53,5 +53,22 @@ public class QLSinhVien:SinhVien
         QLSinhVien sv=new QLSinhVien(masv,tensv,gpa);
         Them(sv);
     }
+    public void delete(int ma)
+    {
+        var sinhvien = qLSinhViens1.Find(u => u.MaSV == ma);
+        if (sinhvien == null)
+        {
+            throw new KeyNotFoundException($"Mã sinh viên {ma} không tìm thấy");
+        }
 
+        qLSinhViens1.Remove(sinhvien);
+        Console.WriteLine($"Đã xóa sinh viên có mã {ma}");
+    }
+
+    public void delete()
+    {
+        Console.WriteLine("Nhap ma sinh vien can xoa: ");
+        int ma = Convert.ToInt32(Console.ReadLine());
+        delete(ma);
+    }
 }
