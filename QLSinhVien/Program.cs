@@ -53,5 +53,12 @@ public class QLSinhVien:SinhVien
         QLSinhVien sv=new QLSinhVien(masv,tensv,gpa);
         Them(sv);
     }
+    public void TimKiemSinhVien()
+    {
+        Console.WriteLine("Nhap ma sinh vien can tim: ");
+        int masv=Convert.ToInt32(Console.ReadLine());
+        TimKiem(masv);
+    }
 
 }
+
