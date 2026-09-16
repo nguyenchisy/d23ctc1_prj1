@@ -68,6 +68,35 @@ namespace prj1.Services
             return _students;
         }
 
+        // 2b. Hàm Sắp xếp danh sách sinh viên theo tiêu chí được chọn
+        public List<Student> SortStudents(string sortBy = "id", bool ascending = true)
+        {
+            if (!_students.Any())
+            {
+                Console.WriteLine("[Hệ thống] Danh sách sinh viên trống.");
+                return new List<Student>();
+            }
+
+            var sortedStudents = sortBy.Trim().ToLower() switch
+            {
+                "name" => ascending
+                    ? _students.OrderBy(s => s.Name).ToList()
+                    : _students.OrderByDescending(s => s.Name).ToList(),
+                "age" => ascending
+                    ? _students.OrderBy(s => s.Age).ToList()
+                    : _students.OrderByDescending(s => s.Age).ToList(),
+                _ => ascending
+                    ? _students.OrderBy(s => s.Id).ToList()
+                    : _students.OrderByDescending(s => s.Id).ToList(),
+            };
+
+            _students.Clear();
+            _students.AddRange(sortedStudents);
+
+            Console.WriteLine($"[Hệ thống] Đã sắp xếp danh sách sinh viên theo {sortBy} ({(ascending ? "tăng dần" : "giảm dần")}).");
+            return _students;
+        }
+
         // 3. Hiển thị thông tin tất cả sinh viên ra màn hình
         public void DisplayAllStudents()
         {

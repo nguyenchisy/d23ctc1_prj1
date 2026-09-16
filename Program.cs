@@ -31,6 +31,10 @@ class Program
         // ĐÃ SỬA: Gọi thẳng hàm tự in danh sách của bạn, không dùng vòng lặp foreach ở đây nữa
         manager.DisplayAllStudents(); 
 
+        // 3b. Sắp xếp danh sách theo tên tăng dần
+        Console.WriteLine("\n--- Sắp xếp danh sách sinh viên theo tên tăng dần ---");
+        manager.SortStudents("name", true);
+        manager.DisplayAllStudents();
 
         // 4. Tìm kiếm thử nghiệm sinh viên theo ID
         Console.WriteLine("\n--- Tìm kiếm sinh viên ID = 1 ---");
