@@ -27,7 +27,7 @@ public class QLSinhVien:SinhVien
         var sinhviens= qLSinhViens1.Find(u=>u.MaSV==ma);
         if(sinhviens ==null)
         {
-            throw new KeyNotFoundException($"Mã sinh viên {ma} không tìm thấy");
+            throw new KeyNotFoundException($"Không tìm thấy sinh viên có mã {ma}");
         }
         if(sinhviens!=null)
         {
