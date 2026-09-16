@@ -45,7 +45,22 @@ class Program
         }
 
 
-        // --- PHẦN 3: KIỂM THỬ CHỨC NĂNG XÓA SINH VIÊN (Issue #10) ---
+        // --- PHẦN 3: KIỂM THỬ CHỨC NĂNG CẬP NHẬT SINH VIÊN ---
+        Console.WriteLine("\n========================================================");
+        Console.WriteLine("--- PHẦN 3: KIỂM THỬ CHỨC NĂNG CẬP NHẬT SINH VIÊN ---");
+
+        Console.WriteLine("\n[Test 1] Cập nhật thông tin sinh viên ID = 1:");
+        manager.UpdateStudent(1, "Alice Nguyen", 21);
+        manager.GetStudentById(1)?.DisplayStudentInfo();
+
+        Console.WriteLine("\n[Test 2] Cập nhật sinh viên không tồn tại (ID = 999):");
+        manager.UpdateStudent(999, "Sinh Vien Moi", 20);
+
+        Console.WriteLine("\n[Test 3] Cập nhật với tuổi không hợp lệ:");
+        manager.UpdateStudent(1, "Alice Nguyen", 10);
+
+
+        // --- PHẦN 4: KIỂM THỬ CHỨC NĂNG XÓA SINH VIÊN (Issue #10) ---
         Console.WriteLine("\n========================================================");
         Console.WriteLine("--- PHẦN 3: KIỂM THỬ CHỨC NĂNG XÓA SINH VIÊN (Issue #10) ---");
         

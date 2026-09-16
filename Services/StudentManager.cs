@@ -96,7 +96,29 @@ namespace prj1.Services
             return _students.FirstOrDefault(s => s.Id == id);
         }
 
-        // 5. Xóa sinh viên theo Mã số (Id)
+        // 5. Cập nhật thông tin sinh viên theo ID
+        public bool UpdateStudent(int id, string name, int age)
+        {
+            if (!Student.Validate(id, name, age, out string errorMsg))
+            {
+                Console.WriteLine($"[Hệ thống] Lỗi dữ liệu cập nhật: {errorMsg}");
+                return false;
+            }
+
+            var student = _students.FirstOrDefault(s => s.Id == id);
+            if (student == null)
+            {
+                Console.WriteLine($"[Hệ thống] Không tìm thấy sinh viên có ID: {id} để cập nhật.");
+                return false;
+            }
+
+            student.Name = name;
+            student.Age = age;
+            Console.WriteLine($"[Hệ thống] Đã cập nhật sinh viên có ID: {id} thành công.");
+            return true;
+        }
+
+        // 6. Xóa sinh viên theo Mã số (Id)
         public bool DeleteStudent(int id)
         {
             if (id <= 0)
